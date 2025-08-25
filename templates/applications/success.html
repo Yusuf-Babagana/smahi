@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Application Successful - S MAHI Global Services{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <!-- Success Icon -->
+                <div class="mb-4">
+                    <i class="bi bi-check-circle-fill display-1" style="color: var(--success-color);"></i>
+                </div>
+                
+                <!-- Success Message -->
+                <h1 class="display-4 fw-bold mb-3" style="color: var(--success-color);">
+                    Application Submitted Successfully!
+                </h1>
+                
+                <p class="lead mb-4">
+                    Thank you, <strong>{{ applicant.full_name }}</strong>! 
+                    Your application for the <strong>Agent</strong> 
+                    position has been received.
+                </p>
+
+                <!-- Application Details Card -->
+                <div class="card mb-4">
+                    <div class="card-header" style="background-color: var(--success-color); color: white;">
+                        <h4 class="mb-0">
+                            <i class="bi bi-file-earmark-check me-2"></i>Application Summary
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-start">
+                            <div class="col-md-6">
+                                <p><strong>Name:</strong> {{ applicant.full_name }}</p>
+                                <p><strong>Email:</strong> {{ applicant.email }}</p>
+                                <p><strong>Phone:</strong> {{ applicant.phone }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Position:</strong> {{ applicant.get_position_applied_display }}</p>
+                                <p><strong>State:</strong> {{ applicant.get_state_display }}</p>
+                                <p><strong>Submitted:</strong> {{ applicant.created_at|date:"F d, Y \a\t g:i A" }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="border rounded p-2 text-center">
+                                    <i class="bi bi-file-earmark-pdf text-primary"></i>
+                                    <small class="d-block">CV: {{ applicant.cv_filename }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="border rounded p-2 text-center">
+                                    <i class="bi bi-receipt text-success"></i>
+                                    <small class="d-block">Receipt: {{ applicant.receipt_filename }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="alert alert-info text-start">
+                    <h5><i class="bi bi-lightbulb me-2"></i>What Happens Next?</h5>
+                    <ul class="mb-0">
+                        <li>Our HR team will review your application within <strong>5-7 business days</strong></li>
+                        <li>You will receive a confirmation email shortly</li>
+                        <li>If your profile matches our requirements, we'll contact you for an interview</li>
+                        <li>Keep an eye on your email for updates</li>
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="mt-4">
+                    <a href="{% url 'landing_page' %}" class="btn btn-primary btn-lg me-3">
+                        <i class="bi bi-house me-2"></i>Back to Home
+                    </a>
+                    <button onclick="window.print()" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-printer me-2"></i>Print Summary
+                    </button>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="mt-5 p-4" style="background-color: var(--light-bg); border-radius: 10px;">
+                    <h5>Need Help?</h5>
+                    <p class="mb-2">
+                        If you have any questions about your application, please contact us:
+                    </p>
+                    <p class="mb-0">
+                        <i class="bi bi-envelope me-2"></i>careers@smahiglobal.com |
+                        <i class="bi bi-telephone me-2"></i>+234 123 456 7890
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

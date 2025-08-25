@@ -1,0 +1,30 @@
+.field-cv_link a, .field-receipt_link a {
+    color: #007cba;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.field-cv_link a:hover, .field-receipt_link a:hover {
+    color: #005a87;
+    text-decoration: underline;
+}
+
+/* Custom styling for the admin interface */
+#header {
+    background: linear-gradient(135deg, #2c5aa0, #34495e);
+}
+
+.module h2, .module caption, .inline-group h2 {
+    background: #2c5aa0;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: #2c5aa0;
+    border-color: #2c5aa0;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover, 
+.submit-row input:hover, a.button:hover {
+    background: #1e3a5f;
+    border-color: #1e3a5f;
+}

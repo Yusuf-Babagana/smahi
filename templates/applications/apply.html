@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block title %}Apply Now - S MAHI Global Services{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Header -->
+                <div class="text-center mb-5">
+                    <h1 class="display-5 fw-bold">Join Our Team</h1>
+                    <p class="lead text-muted">
+                        Fill out the application form below to start your journey with S MAHI Global Services as an Agent.
+                    </p>
+                </div>
+
+                <!-- Application Form -->
+                <div class="card">
+                    <div class="card-header" style="background-color: var(--primary-color); color: white;">
+                        <h4 class="mb-0">
+                            <i class="bi bi-person-plus-fill me-2"></i>Job Application Form
+                        </h4>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="post" enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            
+                            <!-- Personal Information Section -->
+                            <div class="mb-4">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="bi bi-person-circle me-2"></i>Personal Information
+                                </h5>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.full_name.id_for_label }}" class="form-label">
+                                            {{ form.full_name.label }} <span class="text-danger">*</span>
+                                        </label>
+                                        {{ form.full_name }}
+                                        {% if form.full_name.errors %}
+                                            <div class="text-danger small">
+                                                {% for error in form.full_name.errors %}{{ error }}{% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.email.id_for_label }}" class="form-label">
+                                            {{ form.email.label }} <span class="text-danger">*</span>
+                                        </label>
+                                        {{ form.email }}
+                                        {% if form.email.errors %}
+                                            <div class="text-danger small">
+                                                {% for error in form.email.errors %}{{ error }}{% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.phone.id_for_label }}" class="form-label">
+                                            {{ form.phone.label }} <span class="text-danger">*</span>
+                                        </label>
+                                        {{ form.phone }}
+                                        {% if form.phone.errors %}
+                                            <div class="text-danger small">
+                                                {% for error in form.phone.errors %}{{ error }}{% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.state.id_for_label }}" class="form-label">
+                                            {{ form.state.label }} <span class="text-danger">*</span>
+                                        </label>
+                                        {{ form.state }}
+                                        {% if form.state.errors %}
+                                            <div class="text-danger small">
+                                                {% for error in form.state.errors %}{{ error }}{% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.address.id_for_label }}" class="form-label">
+                                        {{ form.address.label }} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.address }}
+                                    {% if form.address.errors %}
+                                        <div class="text-danger small">
+                                            {% for error in form.address.errors %}{{ error }}{% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Application Details Section -->
+                            <div class="mb-4">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="bi bi-briefcase me-2"></i>Application Details
+                                </h5>
+                                
+                                <div class="mb-3">
+                                    <label for="{{ form.position_applied.id_for_label }}" class="form-label">
+                                        {{ form.position_applied.label }} <span class="text-danger">*</span>
+                                    </label>
+                                    {{ form.position_applied }}
+                                    {% if form.position_applied.errors %}
+                                        <div class="text-danger small">
+                                            {% for error in form.position_applied.errors %}{{ error }}{% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Document Uploads Section -->
+                            <div class="mb-4">
+                                <h5 class="border-bottom pb-2 mb-3">
+                                    <i class="bi bi-file-earmark-arrow-up me-2"></i>Required Documents
+                                </h5>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.cv.id_for_label }}" class="form-label">
+                                            {{ form.cv.label }} <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="file-upload-area">
+                                            <i class="bi bi-file-earmark-pdf display-6 text-muted mb-2"></i>
+                                            {{ form.cv }}
+                                            <small class="text-muted d-block">
+                                                {{ form.cv.help_text }}
+                                            </small>
+                                        </div>
+                                        {% if form.cv.errors %}
+                                            <div class="text-danger small mt-1">
+                                                {% for error in form.cv.errors %}{{ error }}{% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label for="{{ form.receipt.id_for_label }}" class="form-label">
+                                            {{ form.receipt.label }} <span class="text-danger">*</span>
+                                        </label>
+                                        <div class="file-upload-area">
+                                            <i class="bi bi-receipt display-6 text-muted mb-2"></i>
+                                            {{ form.receipt }}
+                                            <small class="text-muted d-block">
+                                                {{ form.receipt.help_text }}
+                                            </small>
+                                        </div>
+                                        {% if form.receipt.errors %}
+                                            <div class="text-danger small mt-1">
+                                                {% for error in form.receipt.errors %}{{ error }}{% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Payment Information -->
+                                <div class="alert alert-info">
+                                    <h6><i class="bi bi-info-circle me-2"></i>Payment Information</h6>
+                                    <p class="mb-2">Application processing fee: <strong>₦2,500</strong></p>
+                                    <p class="mb-2">
+                                        <strong>Bank Details:</strong><br>
+                                        Account Name: S.MAHI GLOBAL SERVICE LIMITED<br>
+                                        Account Number: 1013905737<br>
+                                        Bank: Keystone Bank<br>
+                                    </p>
+                                    <small class="text-muted">
+                                        Please upload your payment receipt after making the transfer.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-lg px-5">
+                                    <i class="bi bi-send-fill me-2"></i>Submit Application
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="text-center mt-4">
+                    <p class="text-muted">
+                        <small>
+                            By submitting this application, you agree to our terms and conditions. 
+                            We will contact you within 5-7 business days.
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
