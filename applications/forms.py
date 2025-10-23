@@ -51,9 +51,23 @@ class ApplicationForm(forms.ModelForm):
             'state': 'State of Residence',
             'position_applied': 'Position Applied For',
             'cv': 'CV/Resume',
-            'receipt': 'Payment Receipt (₦2,500)',
+            'receipt': 'Payment Receipt (Optional)',
         }
         
+        help_texts = {
+            'receipt': 'Optional: Only upload if you paid via bank transfer instead of online payment',
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Make receipt field optional since we have online payment
+        self.fields['receipt'].required = False
+        
+        # Set default position to 'agent' and make it read-only
+        self.fields['position_applied'].initial = 'agent'
+        self.fields['position_applied'].widget.attrs['readonly'] = True
+        self.fields['position_applied'].widget.attrs['style'] = 'background-color: #f8f9fa;'
+    
     def clean_cv(self):
         cv = self.cleaned_data.get('cv')
         if cv:
@@ -67,3 +81,29 @@ class ApplicationForm(forms.ModelForm):
             if receipt.size > 5 * 1024 * 1024:  # 5MB limit
                 raise forms.ValidationError('Receipt file size must be less than 5MB.')
         return receipt
+    
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        
+        # If this is a new instance (not updating existing)
+        if not instance.pk:
+            # Set payment information from session if available
+            from django.core.handlers.wsgi import WSGIRequest
+            
+            # Try to get request from form if available
+            if hasattr(self, 'request'):
+                request = self.request
+                if hasattr(request, 'session'):
+                    payment_email = request.session.get('payment_email')
+                    payment_reference = request.session.get('payment_reference')
+                    
+                    if payment_email and payment_reference:
+                        instance.payment_email = payment_email
+                        instance.payment_reference = payment_reference
+                        instance.payment_verified = True
+                        instance.payment_amount = 2500.00
+        
+        if commit:
+            instance.save()
+        
+        return instance

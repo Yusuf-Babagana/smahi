@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Failed - S MAHI Global Services{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <!-- Error Message -->
+                <div class="text-center mb-5">
+                    <div class="error-icon mb-4">
+                        <i class="bi bi-x-circle-fill text-danger display-1"></i>
+                    </div>
+                    <h1 class="display-5 fw-bold text-danger">Payment Failed</h1>
+                    <p class="lead text-muted">
+                        We couldn't process your payment. Please try again.
+                    </p>
+                </div>
+
+                <!-- Retry Card -->
+                <div class="card border-danger">
+                    <div class="card-header bg-danger text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-exclamation-triangle me-2"></i>Payment Issue
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if messages %}
+                            <div class="alert alert-warning">
+                                {% for message in messages %}
+                                    <p class="mb-0">{{ message }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <p class="mb-4">Your payment was not successful. This could be due to:</p>
+                        <ul class="mb-4">
+                            <li>Insufficient funds in your account</li>
+                            <li>Card declined by your bank</li>
+                            <li>Network connectivity issues</li>
+                            <li>Incorrect card details</li>
+                        </ul>
+                        
+                        <div class="text-center">
+                            <a href="{% url 'payment_gateway' %}" class="btn btn-primary btn-lg px-5 me-3">
+                                <i class="bi bi-arrow-repeat me-2"></i>Try Payment Again
+                            </a>
+                            <a href="{% url 'landing_page' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-house me-2"></i>Return to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Support Information -->
+                <div class="alert alert-warning mt-4">
+                    <h6><i class="bi bi-headset me-2"></i>Need Help?</h6>
+                    <p class="mb-2">If you continue experiencing issues, please:</p>
+                    <ul class="mb-0">
+                        <li>Contact your bank to ensure your card is enabled for online payments</li>
+                        <li>Try using a different payment method</li>
+                        <li>Contact our support team for assistance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

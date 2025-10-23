@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Successful - S MAHI Global Services{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <!-- Success Message -->
+                <div class="text-center mb-5">
+                    <div class="success-icon mb-4">
+                        <i class="bi bi-check-circle-fill text-success display-1"></i>
+                    </div>
+                    <h1 class="display-5 fw-bold text-success">Payment Successful!</h1>
+                    <p class="lead text-muted">
+                        Thank you for your payment. You can now access the application form.
+                    </p>
+                </div>
+
+                <!-- Transaction Details -->
+                <div class="card border-success mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="bi bi-receipt me-2"></i>Payment Details
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>Reference:</strong>
+                            </div>
+                            <div class="col-6">
+                                {{ transaction.reference }}
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <strong>Amount Paid:</strong>
+                            </div>
+                            <div class="col-6">
+                                ₦{{ transaction.amount }}
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <strong>Email:</strong>
+                            </div>
+                            <div class="col-6">
+                                {{ transaction.email }}
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <strong>Status:</strong>
+                            </div>
+                            <div class="col-6">
+                                <span class="badge bg-success">Successful</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center">
+                    <a href="{% url 'apply' %}" class="btn btn-primary btn-lg px-5 me-3">
+                        <i class="bi bi-person-plus-fill me-2"></i>Go to Application Form
+                    </a>
+                    <a href="#" class="btn btn-outline-secondary">
+                        <i class="bi bi-download me-2"></i>Download Receipt
+                    </a>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="alert alert-info mt-4">
+                    <h6><i class="bi bi-info-circle me-2"></i>What's Next?</h6>
+                    <p class="mb-2">Your payment has been confirmed. You can now:</p>
+                    <ul class="mb-0">
+                        <li>Fill out the application form immediately</li>
+                        <li>Upload your documents including CV</li>
+                        <li>No need to upload payment receipt (already verified)</li>
+                        <li>Get response within 5-7 business days</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

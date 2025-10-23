@@ -69,7 +69,35 @@ class Applicant(models.Model):
     receipt = models.FileField(
         upload_to=receipt_upload_path,
         validators=[FileExtensionValidator(allowed_extensions=['pdf', 'jpg', 'jpeg', 'png'])],
-        help_text="Upload payment receipt (PDF, JPG, PNG only)"
+        help_text="Upload payment receipt (PDF, JPG, PNG only) - Optional for online payments",
+        blank=True,  # Make receipt optional
+        null=True   # Allow null in database
+    )
+    
+    # Payment integration fields
+    payment_email = models.EmailField(
+        blank=True,
+        null=True,
+        help_text="Email used for payment verification"
+    )
+    
+    payment_reference = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Paystack payment reference"
+    )
+    
+    payment_verified = models.BooleanField(
+        default=False,
+        help_text="Whether payment was verified automatically"
+    )
+    
+    payment_amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=2500.00,
+        help_text="Amount paid for application"
     )
     
     created_at = models.DateTimeField(auto_now_add=True)
@@ -89,3 +117,9 @@ class Applicant(models.Model):
     @property
     def receipt_filename(self):
         return os.path.basename(self.receipt.name) if self.receipt else "No receipt uploaded"
+    
+    def save(self, *args, **kwargs):
+        # Auto-set payment_verified if payment_reference exists
+        if self.payment_reference and not self.payment_verified:
+            self.payment_verified = True
+        super().save(*args, **kwargs)

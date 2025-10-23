@@ -12,6 +12,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+
+# Paystack Configuration
+PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY', 'sk_live_c78047194d1a18fd89f8adf26c9def97f57d8521')
+PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY', 'pk_live_eb19d0698d8b0ebbe4903e5d7151fb618c023d07')
+PAYSTACK_BASE_URL = 'https://api.paystack.co'
+
+# Session settings (important for payment verification)
+SESSION_COOKIE_AGE = 86400  # 24 hours
+SESSION_SAVE_EVERY_REQUEST = True  # Important for payment flow
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -21,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'applications',
+    'payments',  # Payment app added
 ]
 
 MIDDLEWARE = [
@@ -31,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'payments.middleware.PaymentRequiredMiddleware',  # Payment middleware added
 ]
 
 ROOT_URLCONF = 'job_portal.urls'
@@ -112,3 +124,9 @@ DEFAULT_FROM_EMAIL = 'careers@smahiglobal.com'
 # File upload settings
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
+
+# Security settings for production (optional but recommended)
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
