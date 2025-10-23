@@ -14,8 +14,8 @@ ALLOWED_HOSTS = ['*']
 
 
 # Paystack Configuration
-PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY', 'sk_live_c78047194d1a18fd89f8adf26c9def97f57d8521')
-PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY', 'pk_live_eb19d0698d8b0ebbe4903e5d7151fb618c023d07')
+PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY', 'sk_test_your_test_key')
+PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY', 'pk_test_your_test_key')
 PAYSTACK_BASE_URL = 'https://api.paystack.co'
 
 # Session settings (important for payment verification)
