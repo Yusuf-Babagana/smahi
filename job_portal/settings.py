@@ -13,7 +13,10 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
+# Paystack Configuration
+PAYSTACK_SECRET_KEY = os.environ.get('PAYSTACK_SECRET_KEY', 'sk_test_your_test_key')
+PAYSTACK_PUBLIC_KEY = os.environ.get('PAYSTACK_PUBLIC_KEY', 'pk_test_your_test_key')
+PAYSTACK_BASE_URL = 'https://api.paystack.co'
 
 # Session settings (important for payment verification)
 SESSION_COOKIE_AGE = 86400  # 24 hours
